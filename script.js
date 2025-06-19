@@ -15,35 +15,29 @@ let songs = [
     {songName: "Neelakasham Pachakadal ", filePath: "3.mp3", coverPath: "3.jpeg"},
     {songName: "Oru Naal Ini Naam  Madhura Naranga  ", filePath: "4.mp3", coverPath: "4.jpg"},
     {songName: "Oru Vadakkan Selfie -Neelambalin", filePath: "5.mp3", coverPath: "5.jpeg"},
-    {songName: "Ranam Title Track  You Made Me Feel   Prithviraj Sukumaran", filePath: "2.mp3", coverPath: "6.jpg"},
-    {songName: "ULLASA GAYIKE   Adi Kapyare Koottamani  ", filePath: "2.mp3", coverPath: "7.jpg"},
-    {songName: "Venmegham Video Song  2018  Tovino Thomas ", filePath: "2.mp3", coverPath: "8.jpg"},
-    {songName: "Vijay Superum Pournamiyum  Song", filePath: "2.mp3", coverPath: "9.jpg"},
-    {songName: "ഉയരൽ തട Uyiril Thodum - Kumbalangi Nights Official ", filePath: "4.mp3", coverPath: "10.jpg"},
+    {songName: "Ranam Title Track  You Made Me Feel   Prithviraj Sukumaran", filePath: "6.mp3", coverPath: "6.jpg"},
+    {songName: "ULLASA GAYIKE   Adi Kapyare Koottamani  ", filePath: "7.mp3", coverPath: "7.jpg"},
+    {songName: "Venmegham Video Song  2018  Tovino Thomas ", filePath: "8.mp3", coverPath: "8.jpg"},
+    {songName: "Vijay Superum Pournamiyum  Song", filePath: "9.mp3", coverPath: "9.jpg"},
+    {songName: "ഉയരൽ തട Uyiril Thodum - Kumbalangi Nights Official ", filePath: "10.mp3", coverPath: "10.jpg"},
 ]
-Array.from(document.getElementsByClassName('songItemPlay')).forEach((element, index) => {
-    element.addEventListener('click', (e) => {
-        if (songIndex === index && !audioElement.paused) {
-            // If the same song is playing, pause it
-            audioElement.pause();
-            e.target.classList.remove('fa-pause-circle');
-            e.target.classList.add('fa-play-circle');
-            masterPlay.classList.remove('fa-pause-circle');
-            masterPlay.classList.add('fa-play-circle');
-            gif.style.opacity = 0;
-        } else {
-            // Otherwise, play the selected song
-            makeAllPlays(); // Reset other buttons
-            songIndex = index;
-            audioElement.src = songs[songIndex].filePath;
-            audioElement.currentTime = 0;
-            audioElement.play();
-            e.target.classList.remove('fa-play-circle');
-            e.target.classList.add('fa-pause-circle');
-            masterSongName.innerText = songs[songIndex].songName;
-            gif.style.opacity = 1;
-            masterPlay.classList.remove('fa-play-circle');
-            masterPlay.classList.add('fa-pause-circle');
+songItems.forEach((element, i) => {
+    element.addEventListener('click', () => {
+        makeAllPlays();
+        songIndex = i;
+        audioElement.src = songs[songIndex].filePath;
+        masterSongName.innerText = songs[songIndex].songName;
+        audioElement.currentTime = 0;
+        audioElement.play();
+        gif.style.opacity = 1;
+        masterPlay.classList.remove('fa-play-circle');
+        masterPlay.classList.add('fa-pause-circle');
+
+        // update icon if play icon exists inside the songItem
+        let playBtn = element.querySelector('.songItemPlay');
+        if (playBtn) {
+            playBtn.classList.remove('fa-play-circle');
+            playBtn.classList.add('fa-pause-circle');
         }
     });
 });
